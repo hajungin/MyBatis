@@ -2,17 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Board Form</title>
+    <!-- 부트스트랩 CSS 파일 포함 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="container mt-5">
+    <h2 class="text-center">게시글 작성</h2>
     <form action="/save" method="post" enctype="multipart/form-data">
-<!--        파일업로드시 multipart/form-data-->
-        제목 : <input type="text" name="boardTitle"><br>
-        작성자 : <input type="text" name="boardWriter"><br>
-        비밀번호 : <input type="text" name="boardPass"><br>
-        내용 : <textarea name="boardContents" cols="30" rows="10"></textarea><br>
-        <input type="submit" value="작성">
+        <!-- 파일업로드시 multipart/form-data -->
+        <div class="form-group">
+            <label for="boardTitle">제목</label>
+            <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="boardWriter">작성자</label>
+            <input type="text" class="form-control" id="boardWriter" name="boardWriter" placeholder="작성자를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="boardPass">비밀번호</label>
+            <input type="password" class="form-control" id="boardPass" name="boardPass" placeholder="비밀번호를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="boardContents">내용</label>
+            <textarea class="form-control" id="boardContents" name="boardContents" cols="30" rows="10" placeholder="내용을 입력하세요"></textarea>
+        </div>
 
+        <div>
+            <label for="boardPass">파일</label>
+            <input type="file" class="form-control" id="boardFile" name="boardFile" multiple>
+        </div>
+
+        <button type="submit" class="btn btn-primary">작성</button>
     </form>
+</div>
 </body>
 </html>

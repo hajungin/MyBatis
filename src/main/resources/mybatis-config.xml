@@ -4,5 +4,6 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.example.mybatisTest.dto.BoardDTO" alias="boardDto"></typeAlias>
+        <typeAlias type="com.example.mybatisTest.dto.BoardFileDTO" alias="boardFile"></typeAlias>
     </typeAliases>
 </configuration>

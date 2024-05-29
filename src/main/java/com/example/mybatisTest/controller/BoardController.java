@@ -2,14 +2,16 @@ package com.example.mybatisTest.controller;
 
 import com.example.mybatisTest.dto.BoardDTO;
 import com.example.mybatisTest.service.BoardService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
+@Slf4j
 public class BoardController {
     @Autowired
     BoardService boardService;
@@ -20,17 +22,57 @@ public class BoardController {
         return "index";
     }
 
-    @GetMapping("save")
+    @GetMapping("/save")
     public String save(){
         return "save";
     }
 
-    @PostMapping("save")
+    @PostMapping("/save")
     public String saveBoard(BoardDTO boardDTO){
         System.out.println("boardDto : " + boardDTO.toString());
         boardService.save(boardDTO);
-        return "save";
+        return "redirect:/list";
     }
 
+    @GetMapping("/list")
+    public String list(Model model){
+        List<BoardDTO> boardDTOList = boardService.findAll();
+        model.addAttribute("boardList",boardDTOList);
+        return "list";
+    }
 
+    @GetMapping("/one/{id}")
+    public String oneList(Model model,
+                          @PathVariable("id")Long id){
+//        조회수 처리
+        boardService.findUpHit(id);
+//        상세 내용 처리
+        BoardDTO boardDTO1 = boardService.findOne(id);
+
+       log.info(boardDTO1.toString());
+        model.addAttribute("board",boardDTO1);
+        return "show";
+    }
+
+    @GetMapping("update/{id}")
+    public String update(@PathVariable("id")Long id,
+                         Model model){
+        BoardDTO boardDTO = boardService.findOne(id);
+        log.info(boardDTO.toString());
+        model.addAttribute("board",boardDTO);
+        return "update";
+    }
+
+    @PostMapping("update/{id}")
+    public String update(BoardDTO boardDTO){
+         boardService.update(boardDTO);
+        return "redirect:/list";
+    }
+
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable("id")Long id){
+        boardService.delete(id);
+        return "redirect:/list";
+
+    }
 }
