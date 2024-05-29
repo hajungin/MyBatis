@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www/thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Board Form</title>
+    <!-- 부트스트랩 CSS 파일 포함 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">게시글 </h2>
+    <div th:object="${board}">
+
+        <div class="form-group">
+            <label for="id">아이디</label>
+            <textarea  class="form-control" id="id" name="id" th:text="*{id}" readonly></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="boardTitle">제목</label>
+            <textarea  class="form-control" id="boardTitle" name="boardTitle" th:text="*{boardTitle}" readonly></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="boardWriter">작성자</label>
+            <textarea  class="form-control" id="boardWriter" name="boardWriter" th:text="*{boardWriter}" readonly></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="boardContents">내용</label>
+            <textarea class="form-control" id="boardContents" name="boardContents" cols="30" rows="10" th:text="*{boardContents}" readonly></textarea>
+        </div>
+    </div>
+</div>
+<table  class="table table-striped table-bordered">
+    <tr>
+        <th>ID</th>
+        <td th:text="${board.id}">아이디</td>
+    </tr>
+    <tr>
+        <th>Writer</th>
+        <td th:text="${board.boardWriter}">글쓴이</td>
+    </tr>
+    <tr>
+        <th>Title</th>
+        <td th:text="${board.boardTitle}">제목</td>
+    </tr>
+    <tr>
+        <th>Contents</th>
+        <td th:text="${board.boardContents}">내용</td>
+    </tr>
+    <tr>
+        <th>Hits</th>
+        <td th:text="${board.boardHits}">조회수</td>
+    </tr>
+    <tr>
+        <th>CreatedAt</th>
+        <td th:text="${board.createdAt}">작성일</td>
+    </tr>
+</table>
+<div class="text-center">
+    <button onclick="listReq()">목록</button>
+    <button onclick="updateReq()">수정</button>
+    <button onclick="deleteReq()">삭제</button>
+</div>
+
+
+<script th:inline="javascript">
+    const listReq = () => {
+        location.href = "/list";
+    }
+    const updateReq = () => {
+        location.href = "/update/[[${board.id}]]";
+    }
+    const deleteReq = () => {
+        location.href = "/delete/[[${board.id}]]";
+    }
+</script>
+
+</body>
+</html>
