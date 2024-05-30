@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mybatisTest.mapper.BoardMapper">
-    <insert id="save" parameterType="boardDto">
-        INSERT INTO board_table (boardtitle, boardwriter, boardpass, boardcontents)
-        values (#{boardDto.boardTitle},#{boardDto.boardWriter},#{boardDto.boardPass},#{boardDto.boardContents})
+    <insert id="save" parameterType="boardDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO board_table (boardtitle, boardwriter, boardpass, boardcontents, fileattached)
+        values (#{boardDto.boardTitle},#{boardDto.boardWriter},#{boardDto.boardPass},#{boardDto.boardContents},#{boardDto.fileAttached})
     </insert>
 
     <select id="findAll" resultType="boardDto">
@@ -32,6 +32,10 @@
     <delete id="delete" parameterType="Long">
         DELETE FROM board_table WHERE id = #{id}
     </delete>
+    <insert id="saveFile" parameterType="boardFile">
+        INSERT INTO board_file_table (originalfilename, storedfilename,boardid)
+        VALUES (#{originalFileName},#{storedFileName},#{boardId})
+    </insert>
 
 
 </mapper>

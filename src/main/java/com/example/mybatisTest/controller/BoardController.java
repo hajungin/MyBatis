@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,7 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public String saveBoard(BoardDTO boardDTO){
+    public String saveBoard(BoardDTO boardDTO) throws IOException {
         System.out.println("boardDto : " + boardDTO.toString());
         boardService.save(boardDTO);
         return "redirect:/list";
