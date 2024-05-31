@@ -14,7 +14,7 @@
     </select>
 
     <select id="findOne" resultType="boardDto">
-        SELECT id, boardtitle, boardwriter, boardcontents, boardhits, boardpass,
+        SELECT id, boardtitle, boardwriter, boardcontents, boardhits, boardpass, fileattached,
         To_CHAR(createdat, 'yyyy-mm-dd') AS createdAt
         FROM board_table  WHERE id = #{id}
     </select>
@@ -22,6 +22,7 @@
     <update id="upHits" parameterType="Long">
         UPDATE  board_table  SET boardhits = boardhits + 1 WHERE id = #{id}
     </update>
+
     <update id="update" parameterType="boardDto">
         UPDATE board_table SET
         boardtitle = #{boardTitle},
@@ -32,10 +33,15 @@
     <delete id="delete" parameterType="Long">
         DELETE FROM board_table WHERE id = #{id}
     </delete>
+
     <insert id="saveFile" parameterType="boardFile">
         INSERT INTO board_file_table (originalfilename, storedfilename,boardid)
         VALUES (#{originalFileName},#{storedFileName},#{boardId})
     </insert>
 
+    <select id="findFile" resultType="boardFile" parameterType="Long">
+        SELECT *
+        FROM board_file_table  WHERE boardid = #{id}
+    </select>
 
 </mapper>

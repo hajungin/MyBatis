@@ -1,6 +1,7 @@
 package com.example.mybatisTest.controller;
 
 import com.example.mybatisTest.dto.BoardDTO;
+import com.example.mybatisTest.dto.BoardFileDTO;
 import com.example.mybatisTest.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +50,13 @@ public class BoardController {
         boardService.findUpHit(id);
 //        상세 내용 처리
         BoardDTO boardDTO1 = boardService.findOne(id);
-
        log.info(boardDTO1.toString());
         model.addAttribute("board",boardDTO1);
+//      첨부파일 가져오기
+        if (boardDTO1.getFileAttached() == 1){
+            List<BoardFileDTO> boardFileDTOList = boardService.findFile(id);
+            model.addAttribute("boardFileList",boardFileDTOList);
+        }
         return "show";
     }
 

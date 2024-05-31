@@ -49,6 +49,15 @@
         <th>Contents</th>
         <td th:text="${board.boardContents}">내용</td>
     </tr>
+
+    <tr th:if="${board.fileAttached == 1}">
+        <th>Picture</th>
+        <td th:each="boardFile : ${boardFileList}">사진
+        <img th:src="@{|/upload/${boardFile.storedFileName}|}"
+            width="200px" height="200px">
+        </td>
+    </tr>
+
     <tr>
         <th>Hits</th>
         <td th:text="${board.boardHits}">조회수</td>

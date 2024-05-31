@@ -71,4 +71,8 @@ public class BoardService {
     public void update(BoardDTO boardDTO) {
         boardMapper.update(boardDTO);
     }
+
+    public List<BoardFileDTO> findFile(Long id) {
+        return boardMapper.findFile(id);
+    }
 }

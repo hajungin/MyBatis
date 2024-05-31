@@ -24,4 +24,6 @@ public interface BoardMapper {
     void update(@Param("boardFile") BoardDTO boardDTO);
 
     void saveFile(BoardFileDTO boardFileDTO);
+
+    List<BoardFileDTO> findFile(@Param("id") Long id);
 }
